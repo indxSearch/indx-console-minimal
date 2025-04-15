@@ -7,7 +7,7 @@ namespace IndxNugetConsoleApp
     {
         private static void Main()
         {
-            var SearchEngine = new SearchEngine();
+            var engine = new SearchEngine();
 
             var data = new Document[]
             {
@@ -17,12 +17,12 @@ namespace IndxNugetConsoleApp
                 new (3, "The Matrix Resurrections")
             };
 
-            SearchEngine.Insert(data);
-            SearchEngine.Index();
-            while (SearchEngine.Status.SystemState != SystemState.Ready) Thread.Sleep(100);
+            engine.Insert(data);
+            engine.Index();
+            while (engine.Status.SystemState != SystemState.Ready) Thread.Sleep(100);
             var query = new Query("Matr", 5);
 
-            var result = SearchEngine.Search(query);
+            var result = engine.Search(query);
             foreach (var r in result.SearchRecords) Console.WriteLine(r.IndexedText);
         }
     }
